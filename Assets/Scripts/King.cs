@@ -8,4 +8,10 @@ public class King : Piece
     {
         base.Init(payerNum, board);
     }
+
+    public override bool[,] getPossibleMoves()
+    {
+        Debug.Log("King POSSIBLE");
+        return new bool[8, 8];
+    }
 }

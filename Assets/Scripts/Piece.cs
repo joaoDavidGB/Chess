@@ -8,13 +8,16 @@ public class Piece : MonoBehaviour
     private Color _color;
     private bool isSelected;
     private GenerateBoard _board;
+    private CellScript currentCell;
+    public int playerNum;
 
-    public void Init(int payerNum, GenerateBoard board)
+    public virtual void Init(int playerNum, GenerateBoard board)
     {
         Debug.Log("Init Piece");
-        _color = payerNum == 1 ? Color.white : Color.black;
+        _color = playerNum == 1 ? Color.white : Color.black;
         setColor(_color);
-        this._board = board;
+        this.playerNum = playerNum;
+        _board = board;
     }
 
     void setColor(Color color)
@@ -22,7 +25,7 @@ public class Piece : MonoBehaviour
         _renderer.material.color = color;
     }
 
-    void Update()
+    void Update() 
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -37,16 +40,43 @@ public class Piece : MonoBehaviour
                     Debug.Log(gameObject.name + " hit at " + hit.point);
                     _renderer.material.color = Color.red;
                     isSelected = true;
+                    _board.removePieceSelection();
+                    _board.highlightMoves(this.getPossibleMoves());
                     _board.setSelectedPiece(this);
                 }
                 else if (isSelected == true)
                 {
-                    this.transform.position = this._board.getSelectedCell().transform.position;
+                    this.movePiece();
                     isSelected = false;
                     setColor(_color);
+                } else
+                {
+                    //_board.removeMoves();
                 }
             }
         }
+    }
+
+    public void setSelected(bool selected)
+    {
+        this.isSelected = selected;
+    }
+
+    private void movePiece()
+    {
+        Debug.Log("MOVE PIECE TO " + _board.getSelectedCell().getRow() + "-" + _board.getSelectedCell().getCol());
+        if (this._board.getSelectedCell().getCurrentPiece() == null) {
+            this.transform.position = _board.getSelectedCell().transform.position;
+            _board.getSelectedCell().setCurrentPiece(this);
+            this.currentCell.setCurrentPiece(null);
+            _board.removeMoves();
+        }
+    }
+
+    public virtual bool[,] getPossibleMoves()
+    {
+        Debug.Log("BASE POSSIBLE");
+        return new bool[8, 8];
     }
 
     private void OnMouseEnter()
@@ -62,5 +92,19 @@ public class Piece : MonoBehaviour
         {
             setColor(_color);
         }
+    }
+    public CellScript getCurrentCell()
+    {
+        return this.currentCell;
+    }
+
+    public void setCurrenCell(CellScript cell)
+    {
+        this.currentCell = cell;
+    }
+
+    public void rotate180()
+    {
+        this._renderer.transform.Rotate(new Vector3(0, 180, 0));
     }
 }

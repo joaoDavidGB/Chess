@@ -8,4 +8,10 @@ public class Bishop : Piece
     {
         base.Init(payerNum, board);
     }
+
+    public override bool[,] getPossibleMoves()
+    {
+        Debug.Log("Bishop POSSIBLE");
+        return new bool[8, 8];
+    }
 }

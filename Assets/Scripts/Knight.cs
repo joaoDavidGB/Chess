@@ -9,7 +9,13 @@ public class Knight : Piece
         base.Init(playerNum, board);
         if (playerNum == 2)
         {
-            //this._renderer.transform.Rotate(new Vector3(0, 180, 0));
+            this.rotate180();
         }
+    }
+
+    public override bool[,] getPossibleMoves()
+    {
+        Debug.Log("Knight POSSIBLE");
+        return new bool[8, 8];
     }
 }

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5498604444474555309}
   - component: {fileID: -7660424214556751366}
-  - component: {fileID: -7112402005036122801}
   - component: {fileID: -9152137914977076895}
   - component: {fileID: -7510451299478974553}
+  - component: {fileID: 6478024628907848627}
   m_Layer: 0
   m_Name: Queen
   m_TagString: Untagged
@@ -48,19 +48,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 8d213db23e89f6b4fa3d427f07a32b13, type: 3}
---- !u!114 &-7112402005036122801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076469724644035098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0de351b299ba25b4ea6b46107ffbaffa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 2300000, guid: 8d213db23e89f6b4fa3d427f07a32b13, type: 3}
 --- !u!33 &-9152137914977076895
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -110,3 +97,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6478024628907848627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076469724644035098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93d0207012ae824bb7478c11a625766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: -7510451299478974553}
+  playerNum: 0

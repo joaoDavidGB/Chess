@@ -6,13 +6,19 @@ public class CellScript : MonoBehaviour
 {
     [SerializeField] private Color _color1, _color2, _highlightColor;
     [SerializeField] private MeshRenderer _renderer;
+    [SerializeField] private GameObject highlighObject;
     private Color _originalColor;
     private bool isSelected;
     private GenerateBoard _board;
+    private Piece currentPiece;
+    private int row, col;
+    private bool isHighlighted;
     // Start is called before the first frame update
-    public void Init(bool isOffset, GenerateBoard board)
+    public void Init(int row, int col, GenerateBoard board)
     {
-        Debug.Log("Init");
+        bool isOffset = (row % 2 == 0 && col % 2 != 0) || (row % 2 != 0 && col % 2 == 0);
+        this.row = row;
+        this.col = col;
         _originalColor = isOffset ? _color1 : _color2;
         setColor(_originalColor);
         this._board = board;
@@ -20,6 +26,7 @@ public class CellScript : MonoBehaviour
 
     void setColor(Color color)
     {
+        Debug.Log("SET COLOR OF " + row + "-" + col + " to " + color.ToString());
         _renderer.material.color = color;
     }
 
@@ -50,16 +57,49 @@ public class CellScript : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!isSelected)
+        if (!isSelected && !isHighlighted)
         {
             setColor(_highlightColor);
         }
     }
     private void OnMouseExit()
     {
-        if (!isSelected)
+        if (!isSelected && !isHighlighted)
         {
             setColor(_originalColor);
         }
+    }
+
+    public Piece getCurrentPiece()
+    {
+        return this.currentPiece;
+    }
+
+    public int getRow()
+    {
+        return this.row;
+    }
+
+    public int getCol()
+    {
+        return this.col;
+    }
+
+    public void setCurrentPiece(Piece piece)
+    {
+        this.currentPiece = piece;
+    }
+
+    public void highlightMove()
+    {
+        Debug.Log("Highlight Cell " + row + "-" + col);
+        isHighlighted = true;
+        highlighObject.SetActive(true);
+    }
+
+    public void removeMove()
+    {
+        isHighlighted = false;
+        highlighObject.SetActive(false);
     }
 }
